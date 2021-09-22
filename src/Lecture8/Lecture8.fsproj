@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <OutputType>Exe</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <AssemblyName>Lecture8</AssemblyName>
-    <RootNamespace>Lecture8</RootNamespace>
-  </PropertyGroup>
-  <PropertyGroup>
-    <Title>Lecture8</Title>
-    <Description>Stuff for lecture 8</Description>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <Optimize>true</Optimize>
-    <Tailcalls>true</Tailcalls>
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>Lecture8</RootNamespace>
+        
+        <AssemblyName>Lecture8</AssemblyName>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
     
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="MyList.fs" />
-    <Compile Include="MyBinTree.fs" />
-    <Compile Include="LongArith.fs" />
-    <Compile Include="Main.fs" />
-  </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+    <PropertyGroup>
+        <Title>Lecture8</Title>
+        <Description>Lecture 8</Description>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <Optimize>true</Optimize>
+        <Tailcalls>true</Tailcalls>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <Compile Include="MyList.fs"/>
+        <Compile Include="MyBinTree.fs"/>
+        <Compile Include="LongArith.fs"/>
+        <Compile Include="Main.fs"/>
+    </ItemGroup>
 </Project>

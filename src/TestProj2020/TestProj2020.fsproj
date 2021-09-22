@@ -1,26 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <OutputType>Exe</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
-  <PropertyGroup>
-    <Title>TestProj2020</Title>
-    <Description>TestProj2020 does the thing!</Description>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <Optimize>true</Optimize>
-    <Tailcalls>true</Tailcalls>
-    <IsPackable>true</IsPackable>
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <OutputType>Exe</OutputType>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
     
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="FSharpIntro.fs" />
-    <Compile Include="Fib.fs" />
-    <Compile Include="Main.fs" />
-  </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+    <PropertyGroup>
+        <Title>TestProj2020</Title>
+        <Description>TestProj2020 does the thing!</Description>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <Optimize>true</Optimize>
+        <Tailcalls>true</Tailcalls>
+        <IsPackable>true</IsPackable>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <Compile Include="FSharpIntro.fs" />
+        <Compile Include="Fib.fs" />
+        <Compile Include="Main.fs" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="Argu" Version="6.1.1" />
+    </ItemGroup>
 </Project>

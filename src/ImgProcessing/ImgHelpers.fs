@@ -1,4 +1,4 @@
-module TestProj2020.ImgHelpers
+module ImgProcessing.ImgHelpers
 open System.Drawing
 open Brahma.FSharp.OpenCL.Translator.Common
 open OpenCL.Net
@@ -15,7 +15,7 @@ let loadAs2DArray (file:string) =
             res.[i,j] <-
                 let x = img.GetPixel(j,i)
                 (x.R + x.G + x.B) / 3uy
-    printfn "H=%A W=%A" img.Height img.Width
+    printfn $"H=%A{img.Height} W=%A{img.Width}"
     res
 
 let toGrayscale (img:Color[,]) =
@@ -24,7 +24,7 @@ let toGrayscale (img:Color[,]) =
 let save2DByteArrayAsImage (imageData: byte[,]) file =
     let h = imageData.GetLength 0
     let w = imageData.GetLength 1
-    printfn "H=%A W=%A" h w
+    printfn $"H=%A{h} W=%A{w}"
     let img = new Bitmap(w,h)
     for i in 0.. h - 1 do
         for j in 0 .. w - 1 do

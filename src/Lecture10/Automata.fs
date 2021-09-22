@@ -1,4 +1,5 @@
-module Automata
+module Lecture10.Automata
+
 open System.Collections.Generic
 
 type NFASmb<'t> =

@@ -1,13 +1,11 @@
-module ImgPorcessing.Streaming
-
-open TestProj2020
+module ImgProcessing.Streaming
 
 let listAllFiles dir =
     let files = System.IO.Directory.GetFiles(dir)
     List.ofArray files
 
 let processAllFiles inDir outDir filters =
-    let outFile fileFullPath =
+    let outFile (fileFullPath: string) =
         System.IO.Path.Combine(outDir, System.IO.Path.GetFileName fileFullPath)
 
     let platform, queue = ImgHelpers.getCommandQueue "*NVIDIA*"
@@ -81,7 +79,7 @@ let imgProcessor filters (imgSaver1:MailboxProcessor<_>) (imgSaver2:MailboxProce
         )
 
 let imgSaver outDir =
-    let outFile fileFullPath =
+    let outFile (fileFullPath: string) =
         System.IO.Path.Combine(outDir, System.IO.Path.GetFileName fileFullPath)
 
     MailboxProcessor.Start(fun inbox ->

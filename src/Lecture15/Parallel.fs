@@ -1,11 +1,11 @@
-module TestProj2020.Parallel
+module Lecture15.Parallel
 
 type tree =
     | Leaf of int
     | Node of tree*tree
 
 let genRandomTree h =
-    let rand = new System.Random()
+    let rand = System.Random()
     let rec go h =
         if h = 1
         then Leaf(rand.Next())
@@ -13,7 +13,7 @@ let genRandomTree h =
     go h
 
 let genRandomTreeParallel h p =
-    let rand = new System.Random()
+    let rand = System.Random()
     let rec go h c =
         if h = 1
         then Leaf(rand.Next())
@@ -28,7 +28,7 @@ let genRandomTreeParallel h p =
     go h 0
 
 let genRandomTreeParallel2 h p =
-    let rand = new System.Random()
+    let rand = System.Random()
     let rec go h c =
         if h = 1
         then Leaf(rand.Next())
@@ -48,7 +48,7 @@ let genRandomTreeParallel2 h p =
     go h 0
 
 let genRandomTreeParallel3 h p =
-    let rand = new System.Random()
+    let rand = System.Random()
     let mutable x1 = Unchecked.defaultof<_>
     let mutable x2 = Unchecked.defaultof<_>
     let mutable x3 = Unchecked.defaultof<_>

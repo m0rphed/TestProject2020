@@ -1,4 +1,4 @@
-namespace TestProj2020
+namespace Lecture15
 
 module Main =
     open Argu
@@ -35,7 +35,7 @@ module Main =
         let r,t1 = time (fun () -> Parallel.sumTree tr)
         let r,t2 = time (fun () -> Parallel.sumTreeParallel tr 2)
 
-        printfn "Tree creation time = %A, tree traverse time seq = %A, tree traverse time parallel = %A, result = %A" tm t1 t2 r
+        printfn $"Tree creation time = %A{tm}, tree traverse time seq = %A{t1}, tree traverse time parallel = %A{t2}, result = %A{r}"
 
 (*
         let mtx = Parallel.genRandomMatrix 1024

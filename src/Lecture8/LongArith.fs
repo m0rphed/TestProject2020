@@ -53,7 +53,8 @@ let rec foldBack2 f acc l1 l2 =
         match l1,l2 with
         | Singletone x, Singletone y -> f acc x y
         | Cons(x, tl1), Cons(y, tl2) -> f (foldBack2 f acc tl1 tl2) x y
-    else failwithf "Lists should have equal lengths. Actually have: l1: %A , l2: %A" (length l1) (length l2)
+        | _ -> failwith "not supported yet"
+    else failwithf $"Lists should have equal lengths. Actually have: l1: %A{length l1} , l2: %A{length l2}"
 
 let rec trim l =
     match l with

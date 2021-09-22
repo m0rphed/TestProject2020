@@ -1,4 +1,4 @@
-module RegexpParser
+module Lecture11.RegexpParser
 
 open System.IO
 open FSharp.Text.Lexing

@@ -1,44 +1,54 @@
 module Lecture5.PerfTests
 
 open System
-open System
-open System.Security.Cryptography
-open System.Threading
-open TestProj2020
 
+/// Config of performance test
+/// - forceGC: turn on/off immediate garbage collection of all generations
 [<Struct>]
 type PerfConfig =
-    val From: int
-    val Step: int
-    val To  : int
-    val ForceGC: bool
-    new (_from, _step, _to, forceGC) = {From = _from; Step = _step; To = _to; ForceGC = forceGC}
+    val fromNum: int
+    val step: int
+    val toNum: int
+    val forceGC: bool
 
+    new(_from, _step, _to, forceGC) =
+        { fromNum = _from
+          step = _step
+          toNum = _to
+          forceGC = forceGC }
+
+/// Generates random list of length = n
 let genRandomList n =
-    let rand = new System.Random()
+    let rand = System.Random()
     List.init n (fun _ -> rand.Next())
 
-let time f =
-    let timer = new System.Diagnostics.Stopwatch()
+/// Calculates the execution time of the function
+let time func =
+    let timer = System.Diagnostics.Stopwatch()
     timer.Start()
-    let res = f()
+    let res = func ()
     let time = timer.ElapsedMilliseconds
-    res,time
+    res, time
 
-let perfTests (perfConfig:PerfConfig) sortFun sycles file =
-    let steps = [perfConfig.From .. perfConfig.Step .. perfConfig.To]
-    let timings = Array.zeroCreate steps.Length
-    let mutable j = 0
-    for i in steps do
-        let lst = genRandomList i
-        let times = Array.zeroCreate sycles
-        for j in 0 .. sycles - 1 do
-            if perfConfig.ForceGC then GC.Collect()
-            let res,time = time (fun _ -> sortFun lst)
-            if perfConfig.ForceGC then GC.Collect()
-            times.[j] <- string time
-            printfn "Measured: len = %A, iteration = %A, time = %A" i j time
-        timings.[j] <- (string i) + ","  + (String.concat ", " times)
-        j <- j + 1
+let perfTests (perfConfig: PerfConfig) sortFun cycles file =
+    let iterations =
+        [ perfConfig.fromNum .. perfConfig.step .. perfConfig.toNum ]
 
-    System.IO.File.WriteAllLines (file, timings)
+    let timings = Array.zeroCreate iterations.Length
+    let mutable counter = 0
+
+    for n in iterations do
+        let randomData = genRandomList n
+        let times = Array.zeroCreate cycles
+
+        for cycleNum in 0 .. cycles - 1 do
+            if perfConfig.forceGC then GC.Collect()
+            let _res, time = time (fun _ -> sortFun randomData)
+            if perfConfig.forceGC then GC.Collect()
+            times.[cycleNum] <- string time
+            printfn $"Measured: len = %A{n}, iteration = %A{cycleNum}, time = %A{time}"
+
+        timings.[counter] <- (string n) + "," + (String.concat ", " times)
+        counter <- counter + 1
+
+    System.IO.File.WriteAllLines(file, timings)

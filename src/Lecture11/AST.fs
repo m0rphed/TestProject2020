@@ -1,4 +1,4 @@
-module AST
+module Lecture11.AST
 
 type VName = Var of string
 

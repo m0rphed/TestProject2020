@@ -1,9 +1,9 @@
 namespace TestProj2020
 
-open Automata
+open Lecture10.Automata
 
 module Main =
-    open Regexp
+    open Lecture10.Regexp
 
     [<EntryPoint>]
     let main (argv: string array) =

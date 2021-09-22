@@ -1,4 +1,4 @@
-module ImgPorcessing.Matrices
+module ImgProcessing.Matrices
 
 open OpenCL.Net
 open Brahma.OpenCL

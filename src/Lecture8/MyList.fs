@@ -1,4 +1,4 @@
-module MyList
+module Lecture8.MyList
 
 type MyList<'t> =
     | Nil

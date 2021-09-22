@@ -2,25 +2,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+        <TargetFramework>net5.0</TargetFramework>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
+    
     <ItemGroup>
-        <Compile Include="AssemblyInfo.fs" />
-        <Compile Include="Tests.fs" />
-        <Compile Include="FSharpIntreTests.fs" />
-        <Compile Include="Lecture4Tests.fs" />
-        <Compile Include="Main.fs" />
+        <Compile Include="Tests.fs"/>
+        <Compile Include="FSharpIntreTests.fs"/>
+        <Compile Include="Lecture4Tests.fs"/>
+        <Compile Include="Main.fs"/>
     </ItemGroup>
+    
     <ItemGroup>
-        <ProjectReference Include="../../src/TestProj2020/TestProj2020.fsproj" />
-        <ProjectReference Include="..\..\src\Lecture4\Lecture4.fsproj" />
-        <ProjectReference Include="..\..\src\Lecture8\Lecture8.fsproj" />
+        <PackageReference Include="Expecto" Version="9.0.4"/>
+        <PackageReference Include="Expecto.FsCheck" Version="9.0.4"/>
     </ItemGroup>
+    
     <ItemGroup>
-      <Content Include="TestArray1.txt">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="TestF1.txt" />
+        <ProjectReference Include="..\..\src\Lecture4\Lecture4.fsproj"/>
+        <ProjectReference Include="..\..\src\Lecture8\Lecture8.fsproj"/>
+        <ProjectReference Include="..\..\src\TestProj2020\TestProj2020.fsproj"/>
     </ItemGroup>
-    <Import Project="..\..\.paket\Paket.Restore.targets" />
+    
+    <ItemGroup>
+        <Content Include="TestArray1.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="TestF1.txt"/>
+    </ItemGroup>
 </Project>
