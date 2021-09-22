@@ -1,26 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <OutputType>Exe</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <AssemblyName>Lecture4</AssemblyName>
-    <RootNamespace>Lecture4</RootNamespace>
-  </PropertyGroup>
-  <PropertyGroup>
-    <Title>Lecture4</Title>
-    <Description>Stuff for lecture 4</Description>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <Optimize>true</Optimize>
-    <Tailcalls>true</Tailcalls>
-    
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Parallel.fs" />
-    <Compile Include="Main.fs" />
-  </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>Lecture15</RootNamespace>
+        
+        <AssemblyName>Lecture15</AssemblyName>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo> 
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Title>Lecture15</Title>
+        <Description>Lecture 15</Description>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <Optimize>true</Optimize>
+        <Tailcalls>true</Tailcalls>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Parallel.fs" />
+        <Compile Include="Main.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Argu" Version="6.1.1" />
+    </ItemGroup>
 </Project>

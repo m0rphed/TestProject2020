@@ -1,4 +1,4 @@
-module CalcLexer
+module Lecture11.CalcLexer
 # 1 "CalcLexer.fsl"
  
 

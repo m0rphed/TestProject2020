@@ -1,17 +1,16 @@
-namespace TestProj2020
+module Lecture8.Main
 
 open MyList
 open MyBinTree
 
-module Main =
-    open Lecture8
-    open LongArith
+open Lecture8
+open LongArith
 
-    open System
+open System
 
-    [<EntryPoint>]
-    let main (argv: string array) =
-        (*let lst = Cons(8, Cons(4, Cons (2, Nil)))
+[<EntryPoint>]
+let main (argv: string array) =
+    (*let lst = Cons(8, Cons(4, Cons (2, Nil)))
         let x = MyList.reduceBack (/) lst
         let y = MyList.reduce (/) lst
 
@@ -50,35 +49,37 @@ module Main =
         printfn "Tree = %A" (MyBinTree.map ((+)1.0) ((*)3) tree2)
 *)
 
-        let myArrayMap f arr =
-            let res = Array.zeroCreate (Array.length arr)
-            for i in 0..Array.length arr - 1 do
-                res.[i] <- f arr.[i]
-            res
+    let myArrayMap f arr =
+        let res = Array.zeroCreate (Array.length arr)
 
-        let arr = [|1; 2; 3|]
+        for i in 0 .. Array.length arr - 1 do
+            res.[i] <- f arr.[i]
 
-        //printfn "Array = %A" arr
+        res
 
-        Array.iteri (fun j x -> arr.[j] <- x + 1) arr
+    let arr = [| 1; 2; 3 |]
 
-        //    printfn "Array iteri = %A" arr
+    //printfn "Array = %A" arr
 
-        (*printfn "Array map = %A" (Array.map ((+)1) arr)
+    Array.iteri (fun j x -> arr.[j] <- x + 1) arr
+
+    //    printfn "Array iteri = %A" arr
+
+    (*printfn "Array map = %A" (Array.map ((+)1) arr)
 
         printfn "Array map, second round = %A" (Array.map ((+)1) arr)
 
         printfn "My array map = %A" (myArrayMap ((+)1) arr)
         printfn "My array map, second round = %A" (myArrayMap ((+)1) arr)
 *)
-        let rec eval tree =
-            match tree with
-            | Leaf x -> x
-            | Node (op, l, r) -> op (eval l) (eval r)
+    let rec eval tree =
+        match tree with
+        | Leaf x -> x
+        | Node (op, l, r) -> op (eval l) (eval r)
 
-        // printfn "Eval = %A" (eval tree)
+    // printfn "Eval = %A" (eval tree)
 
-     (*   let r1 = LongArith.add (Pos, Singletone(9)) (Pos, Singletone(9))
+    (*   let r1 = LongArith.add (Pos, Singletone(9)) (Pos, Singletone(9))
 
         printfn "%A" r1
 
@@ -118,14 +119,15 @@ module Main =
 
         printfn "%A" r5
 *)
-        let r2 = LongArith.mult (Pos, Cons(3,Singletone 4)) (Pos, Singletone(3))
+    let r2 =
+        LongArith.mult (Pos, Cons(3, Singletone 4)) (Pos, Singletone(3))
 
-        printfn "%A" r2
+    printfn "%A" r2
 
-       (* let r7 = LongArith.fromInt64 -20L
+    (* let r7 = LongArith.fromInt64 -20L
         printfn "%A" r7
 
         let r8 = LongArith.toInt64 (Neg, Cons(2,Singletone 2))
         printfn "%A" r8
 *)
-        0
+    0

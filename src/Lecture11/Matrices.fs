@@ -1,6 +1,5 @@
-module Matrices
+module Lecture11.Matrices
 open System.Collections.Generic
-open System.Threading.Tasks
 open System.Threading.Tasks
 
 let multiply (m1:'t [,]) (m2:'t [,]) opMult opPlus =
@@ -66,7 +65,7 @@ let multBoolSparseParallel2 (mtx1:HashSet<_>) mtx2 =
     //|> Array.iter (fun s -> res.UnionWith s)
     let r = new HashSet<_>()
     res//.ToArray()
-    |> Seq.iter(fun x -> r.UnionWith x)
+    |> Seq.iter(r.UnionWith)
     r
     //|> Array.ofSeq
 

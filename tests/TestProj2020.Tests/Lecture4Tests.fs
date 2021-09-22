@@ -1,6 +1,6 @@
 module TestProj2020.Tests.Lecture4Tests
 
-open TestProj2020.Sorts
+open Lecture4.Sorts
 open Expecto
 
 [<Tests>]

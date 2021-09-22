@@ -1,4 +1,4 @@
-module Regexp
+module Lecture10.Regexp
 
 open Automata
 
@@ -13,9 +13,9 @@ type Regexp<'t> =
 let regexpToNFA regexp =
     let rec _go curFreeState curRegexp =
         match curRegexp with
-        | REps -> new NFA<_> (curFreeState, curFreeState + 1,
+        | REps -> NFA<_>(curFreeState, curFreeState + 1,
                                 [ (curFreeState, Eps, curFreeState + 1) ])
-        | RSmb s -> new NFA<_> (curFreeState, curFreeState + 1,
+        | RSmb s -> NFA<_>(curFreeState, curFreeState + 1,
                                 [ (curFreeState, Smb(s), curFreeState + 1) ])
         | Alt (l, r) ->
             let lAtm = _go curFreeState l
@@ -31,7 +31,7 @@ let regexpToNFA regexp =
                 ]
                 @ rAtm.Transitions
                 @ lAtm.Transitions
-            new NFA<_> (newStart, newFinal, transitions)
+            NFA<_>(newStart, newFinal, transitions)
 
         | Seq (l, r) ->
             let lAtm = _go curFreeState l
@@ -46,7 +46,7 @@ let regexpToNFA regexp =
                 ]
                 @ rAtm.Transitions
                 @ lAtm.Transitions
-            new NFA<_> (newStart, newFinal, transitions)
+            NFA<_>(newStart, newFinal, transitions)
 
         | Star r ->
             let newAtm = _go curFreeState r
@@ -60,6 +60,8 @@ let regexpToNFA regexp =
                     (newFinal, Eps, newStart)
                 ]
                 @ newAtm.Transitions
-            new NFA<_> (newStart, newFinal, transitions)
+            NFA<_>(newStart, newFinal, transitions)
+
+        | _ -> failwith "Operator or symbol not supported yet :("
 
     _go 0 regexp

@@ -37,7 +37,7 @@ type FA<'smb> () =
                 "{"
                 "rankdir = LR"
                 "node [shape = circle];"
-                sprintf "%A[shape = circle, label = \"%A_Start\"]" this.StartState this.StartState
+                $"%A{this.StartState}[shape = circle, label = \"%A{this.StartState}_Start\"]"
             ]
 
         let footer =
@@ -48,12 +48,8 @@ type FA<'smb> () =
 
         let content =
             [
-                for (s,f,t) in this.TransitionsList do
-                    sprintf
-                        "%A -> %A [label = \"%s\"]"
-                        s
-                        f
-                        t.PrettyString
+                for s,f,t in this.TransitionsList do
+                    $"%A{s} -> %A{f} [label = \"%s{t.PrettyString}\"]"
             ]
 
         System.IO.File.WriteAllLines (outFile, header @ content @ footer)
@@ -75,8 +71,8 @@ type MyDFA<'smb> (transitions, startSate, finalState) =
 
 
 
-let m = new MyMatrix<_>(2,3) :> IMatrix<_>
-m.[1,2] <- Smb(0) :> ISmb<_>
+let matrix = MyMatrix<_>(2,3) :> IMatrix<_>
+matrix.[1,2] <- Smb(0) :> ISmb<_>
 
-let fa = new MyDFA<_>(m,1,0)
-fa.ToDot "file"
+let finiteAutomata = MyDFA<_>(matrix,1,0)
+finiteAutomata.ToDot "file"

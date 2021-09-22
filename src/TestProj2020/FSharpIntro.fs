@@ -35,13 +35,12 @@ let arrayDemo n x y =
         a.[2] <- 4
 
         for i in a do
-            printfn "%A" i
+            printfn $"%A{i}"
 
-        let rand = new System.Random()
+        let rand = System.Random()
 
         let mutable x = 0
         while x < n do
             a.[x] <- rand.Next()
             x <- x + 1
-    else
-        printfn "Papameter n should not be less then 0. Actual value: %A" n
+    else printfn $"Parameter n should not be less then 0. Actual value: %A{n}"

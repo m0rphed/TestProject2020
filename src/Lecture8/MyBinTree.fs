@@ -1,4 +1,4 @@
-module MyBinTree
+module Lecture8.MyBinTree
 
 type MyBinTree'<'tVal> =
     | Leaf of 'tVal

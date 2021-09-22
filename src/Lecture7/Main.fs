@@ -1,8 +1,4 @@
-namespace TestProj2020
+module Lecture7.Main
 
-module Main =
-
-
-    [<EntryPoint>]
-    let main (argv: string array) =
-        0
+[<EntryPoint>]
+let main (argv: string array) = 0

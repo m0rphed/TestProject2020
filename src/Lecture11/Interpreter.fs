@@ -1,5 +1,8 @@
-module Interpreter
+module Lecture11.Interpreter
+
 open System.Collections.Generic
+open Lecture10 // using Regexp from Lecture 10
+
 
 let private newDataToConsole = new Event<string>()
 
@@ -23,16 +26,16 @@ let rec processRegExp (vDict:Dictionary<_,_>) re =
                 vDict.[v]
             with
             | _ ->
-                sprintf "Variable %A is not declared." v |> runtimeException.Trigger
-                failwith "Variable %A is not declared." v
+                $"Variable %A{v} is not declared." |> runtimeException.Trigger
+                failwith $"Variable %A{v} is not declared."
         match data with
         | RE r -> r
         | Bool _ ->
-            sprintf "Variable %A has type bool, but regexp is expected." v |> runtimeException.Trigger
-            failwithf "Variable %A has type bool, but regexp is expected." v
+            $"Variable %A{v} has type bool, but regexp is expected." |> runtimeException.Trigger
+            failwithf $"Variable %A{v} has type bool, but regexp is expected."
         | Lst _ ->
-            sprintf "Variable %A has type list, but regexp is expected." v |> runtimeException.Trigger
-            failwithf "Variable %A has type list, but regexp is expected." v
+            $"Variable %A{v} has type list, but regexp is expected." |> runtimeException.Trigger
+            failwithf $"Variable %A{v} has type list, but regexp is expected."
     | AST.RSmb s -> Regexp.RSmb s
     | AST.Alt(l, r) ->
         let l = processRegExp vDict l
@@ -67,7 +70,7 @@ let processExpr vDict expr =
     | AST.RegExp re ->
         RE (processRegExp vDict re)
 
-let processStmt (vDict:Dictionary<_,_>) stmt =
+let processStmt (vDict:Dictionary<_,_>) (pDict:Dictionary<string,string>) stmt =
     match stmt with
     | AST.Print v ->
         let data =
@@ -75,21 +78,22 @@ let processStmt (vDict:Dictionary<_,_>) stmt =
                 vDict.[v]
             with
             | _ ->
-                sprintf "Variable %A is not declared." v |> runtimeException.Trigger
-                failwithf "Variable %A is not declared." v
+                $"Variable %A{v} is not declared." |> runtimeException.Trigger
+                failwithf $"Variable %A{v} is not declared."
         match data with
-        | RE r -> sprintf "%A" r |> newDataToConsole.Trigger
-        | Bool b -> sprintf "%A" b |> newDataToConsole.Trigger
-        | Lst l -> sprintf "%A" l |> newDataToConsole.Trigger
+        | RE r -> pDict.["print"] <- (pDict.["print"] + r.ToString() + "\n")
+        | Bool b -> pDict.["print"] <- (pDict.["print"] + b.ToString() + "\n")
+        | Lst l -> pDict.["print"] <- (pDict.["print"] + l.ToString() + "\n")
     | AST.VDecl(v,e) ->
         if vDict.ContainsKey v
         then vDict.[v] <- processExpr vDict e
         else vDict.Add(v, processExpr vDict e)
-    vDict
+    vDict, pDict
 
 let run ast =
-
-    let vDict = new Dictionary<_,_>()
-    ast
-    |> List.fold processStmt vDict
-    |> ignore
+    let vDict = Dictionary<_,_>()
+    let pDict = Dictionary<_,_>()
+    let varDict = Dictionary<_,_>()
+    pDict.Add("print", "")
+    let vD, pD = List.fold (fun (d1, d2) -> processStmt d1 d2) (vDict, pDict) ast
+    vD, varDict, pDict

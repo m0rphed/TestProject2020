@@ -1,7 +1,6 @@
-namespace TestProj2020
+namespace ImgProcessing
 
 open System.Drawing.Imaging
-open ImgPorcessing
 
 module Main =
     open Argu
@@ -46,7 +45,7 @@ module Main =
             |> filter ImgHelpers.edgesKernel
 *)
         //let r,t = time r
-        let _do () = ImgPorcessing.Streaming.processAllFiles inDir outDir filters
+        let _do () = Streaming.processAllFiles inDir outDir filters
         //let _do () = ImgPorcessing.Streaming.processAllFilesAsync inDir outDir filters
         let t = time _do
         printfn "Execution time: %A seconds" t

@@ -1,4 +1,4 @@
-module TestProj2020.Main
+module Lecture11.Main
 
 open Argu
 
@@ -9,23 +9,23 @@ type CLIArguments =
             match s with
             | Input _ -> "File to interpret."
 
-open System.Collections.Generic
-open Automata
+open Lecture11.Automata
+open Lecture10.Regexp
+open Lecture10.Automata
 open Matrices
-open Regexp
-open RegexpParser
+open System.Collections.Generic
 
 let processRegexp regexp input =
     let nfa = regexpToNFA regexp
 
     let res, time = Lecture5.PerfTests.time (fun _ -> recognizeNFA nfa input)
 
-    printfn "Recognition with graph NFA: %A in %A milliseconds" res time
+    printfn $"Recognition with graph NFA: %A{res} in %A{time} milliseconds"
 
     let mtxNFA = nfaToMatrixNFA nfa
     let eclsNFA = epsClosure mtxNFA
     let res, time = Lecture5.PerfTests.time (fun _ -> accept eclsNFA input)
-    printfn "Recognition with matrix NFA: %A in %A milliseconds" res time
+    printfn $"Recognition with matrix NFA: %A{res} in %A{time} milliseconds"
     printfn "------------------------"
 
 
@@ -37,7 +37,8 @@ let main (argv: string array) =
     then
         let file = results.GetResult Input
         let ast = RegexpParser.parseRegexpFromString (System.IO.File.ReadAllText file)
-        Interpreter.run ast
+        let _, _, pD = Interpreter.run ast
+        printfn "%s" pD.["print"]
     else
         parser.PrintUsage() |> printfn "%s"
     0

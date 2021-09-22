@@ -1,48 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <OutputType>Exe</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <AssemblyName>Lecture11</AssemblyName>
-    <RootNamespace>Lecture11</RootNamespace>
-  </PropertyGroup>
-  <PropertyGroup>
-    <Title>Lecture11</Title>
-    <Description>Stuff for lecture 8</Description>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <Optimize>true</Optimize>
-    <Tailcalls>true</Tailcalls>
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>Lecture11</RootNamespace>
+        
+        <AssemblyName>Lecture11</AssemblyName>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
     
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="AST.fs" />
-    <FsYacc Include="CalcParser.fsy">
-      <OtherFlags>--module CalcParser</OtherFlags>
-    </FsYacc>
-    <FsLex Include="CalcLexer.fsl">
-      <OtherFlags>--module CalcLexer --unicode</OtherFlags>
-    </FsLex>
-    <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Matrices.fs" />
-    <Compile Include="Automata.fs" />
-    <Compile Include="CalcParser.fs" />
-    <Compile Include="CalcLexer.fs" />
-    <Compile Include="Interpreter.fs" />
-    <Compile Include="RegexpParser.fs" />
-    <Compile Include="Main.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Lecture10\Lecture10.fsproj" />
-    <ProjectReference Include="..\Lecture5\Lecture5.fsproj" />
-  </ItemGroup>
-<ItemGroup>
-    <PackageReference Include="FsLexYacc" Version="10.0.0" />
-  </ItemGroup>
-<ItemGroup>
-  <Content Include="Example.txt" />
-</ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+    <PropertyGroup>
+        <Title>Lecture11</Title>
+        <Description>Lecture 11: Interpreter of RegEx (demo) Using FsLex, FsYacc</Description>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <Optimize>true</Optimize>
+        <Tailcalls>true</Tailcalls>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <FsYacc Include="CalcParser.fsy">
+            <OtherFlags>--module CalcParser</OtherFlags>
+        </FsYacc>
+        
+        <FsLex Include="CalcLexer.fsl">
+            <OtherFlags>--module CalcLexer --unicode</OtherFlags>
+        </FsLex>
+        <Compile Include="AST.fs"/>
+        <Compile Include="Matrices.fs"/>
+        <Compile Include="Automata.fs"/>
+        <Compile Include="CalcParser.fs"/>
+        <Compile Include="CalcLexer.fs"/>
+        <Compile Include="Interpreter.fs"/>
+        <Compile Include="RegexpParser.fs"/>
+        <Compile Include="Main.fs"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\Lecture10\Lecture10.fsproj"/>
+        <ProjectReference Include="..\Lecture5\Lecture5.fsproj"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="FsLexYacc" Version="10.0.0"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Content Include="Example.txt"/>
+    </ItemGroup>
 </Project>

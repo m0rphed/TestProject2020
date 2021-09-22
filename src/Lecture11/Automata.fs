@@ -1,10 +1,8 @@
-//open Automata
+module Lecture11.Automata
 
-module Automata
+open Lecture10.Automata
+open Lecture11.Matrices // using matrix multiplication, addition
 open System.Collections.Generic
-open System.Security.Policy
-open Automata
-open Matrices
 
 [<Struct>]
 type MatrixNFA<'t> =
@@ -28,7 +26,7 @@ let nfaToMatrixNFA (nfa:NFA<_>) =
         nfa.Transitions
         |> List.iter (fun (s,l,f) -> mtx.[s,f].Add l |> ignore)
         mtx
-    new MatrixNFA<_> (new HashSet<_>([nfa.StartState]), new HashSet<_>([nfa.FinalState]), mtx)
+    new MatrixNFA<_> (HashSet<_>([nfa.StartState]), new HashSet<_>([nfa.FinalState]), mtx)
 
 let seqToAtm (input: list<_>) =
     let mtx =
@@ -46,13 +44,13 @@ let toDot (nfa:MatrixNFA<_>) outFile =
             "rankdir = LR"
             "node [shape = circle];"
             for s in nfa.StartState do
-                sprintf "%A[shape = circle, label = \"%A_Start\"]" s s
+                $"%A{s}[shape = circle, label = \"%A{s}_Start\"]"
         ]
 
     let footer =
         [
              for s in nfa.FinalState do
-                sprintf "%A[shape = doublecircle]" s
+                $"%A{s}[shape = doublecircle]"
              "}"
         ]
 
